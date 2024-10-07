@@ -103,7 +103,10 @@ const ProductPage = () => {
                                 />
                                 <span>High to Low</span>
                             </label>
-                           {selectedSort ?  <button onClick={() => setSelectedSort("")}> <XCircleIcon className="w-6 h-6"/> </button> : null }
+                            {selectedSort ? <button onClick={() => {
+                                setSelectedSort("");
+                                setQuery("")
+                            }}> <XCircleIcon className="w-6 h-6" /> </button> : null}
 
                         </div>
 

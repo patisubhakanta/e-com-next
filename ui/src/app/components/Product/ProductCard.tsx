@@ -18,7 +18,7 @@ const ProductCard = ({ product }: { product: IProduct }) => {
     }, [cart])
     return (
         <>
-            <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-200 p-4">
+            <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white border border-gray-200 p-4 h-[450px]">
                 <div className="relative w-full h-48">
                     <img
                         className="w-full h-48 object-contain"
@@ -27,6 +27,9 @@ const ProductCard = ({ product }: { product: IProduct }) => {
                     />
                 </div>
                 <div className="px-6 py-4">
+                    <p className="text-gray-700 text-sm">
+                        {name}
+                    </p>
                     <div className="font-bold text-xl mb-2">{formatCurrency(price)}/-</div>
                     <p className="text-gray-700 text-sm">
                         {description}
