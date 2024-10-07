@@ -1,10 +1,10 @@
 import express, { Application } from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import ProductRoutes from "./routes/ProductRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import OrderRoutes from "./routes/OrderRoute";
+import connectDB from "./db/mongodb";
 
 dotenv.config();
 
@@ -19,10 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose
-  .connect(mongoUri)
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => console.error("MongoDB connection error:", error));
+connectDB(mongoUri);
 
 // Routes
 app.use("/api", ProductRoutes);
