@@ -7,10 +7,9 @@ import Logo from "../../../../assets/icon.png"
 import { PowerIcon, ShoppingCartIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 const Header = () => {
   const router = useRouter()
-  const [showLogout, setShowLogout] = useState(() => Boolean(localStorage.getItem('token')));
+  const [showLogout, setShowLogout] = useState(false);
 
   useEffect(() => {
-   
     const checkToken = () => {
       const token = localStorage.getItem('token');
       setShowLogout(Boolean(token));
