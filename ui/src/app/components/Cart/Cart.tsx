@@ -10,6 +10,7 @@ const CartItems = () => {
     const { cart, clearCart } = useCart();
     const { checkout } = useCheckout();
     const router = useRouter();
+    const token = localStorage.getItem('token');
 
     const grandTotal = cart.reduce((total, checkoutProduct) => {
         const { product, quantity } = checkoutProduct;
@@ -17,14 +18,18 @@ const CartItems = () => {
     }, 0);
 
     const handleCheckout = async () => {
-        try {
-            const response = await checkout(cart);
-            if (response) {
-                router.push("/SuccessPage")
-                clearCart()
+        if (token) {
+            try {
+                const response = await checkout(cart);
+                if (response) {
+                    router.push("/SuccessPage")
+                    clearCart()
+                }
+            } catch (error) {
+                alert('Checkout failed, please try again.');
             }
-        } catch (error) {
-            alert('Checkout failed, please try again.');
+        } else {
+            router.push("/login")
         }
     };
     return (
@@ -50,10 +55,10 @@ const CartItems = () => {
                             onClick={handleCheckout}
                             className="px-8 w-contain text-white p-2 rounded hover:bg-blue-600 bg-blue-500"
                         >
-                           Place Order
+                            Place Order
                         </button>
                     </div>
-                </div> : <div  className="mt-[200px] h-[70vh]"> No product added</div>}
+                </div> : <div className="mt-[200px] h-[70vh]"> No product added</div>}
         </>
     );
 };

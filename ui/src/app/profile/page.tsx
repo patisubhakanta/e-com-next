@@ -53,7 +53,7 @@ const ProfilePage = () => {
                                                 Quantity: {item.qty}
                                             </p>
                                             <p className="mt-2">
-                                                Price: ₹{formatCurrency(item.total)}
+                                                Price: {formatCurrency(item.total)}
                                             </p>
 
                                         </div>
