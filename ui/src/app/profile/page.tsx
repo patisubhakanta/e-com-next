@@ -1,5 +1,4 @@
-"use client"
-import React from 'react';
+"use client";
 import useFetchOrder from '../hooks/useFetchOrder';
 import { formatCurrency } from '../utils';
 

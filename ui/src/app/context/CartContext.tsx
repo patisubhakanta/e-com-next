@@ -1,5 +1,5 @@
-"use client"
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+"use client";
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { IProduct } from '../types/Types';
 
 // Define the shape of a product in the cart

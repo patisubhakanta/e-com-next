@@ -1,12 +1,12 @@
 "use client"
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import useProducts from "@/app/hooks/useProducts";
-import { IProduct } from "@/app/types/Types";
 import Link from "next/link";
 import axios from "axios";
-import { API } from "@/app/route/Route";
 import { XCircleIcon } from "@heroicons/react/16/solid";
+import useProducts from "../../hooks/useProducts";
+import { IProduct } from "../../types/Types";
+import { API } from "../../route/Route";
 
 const ProductPage = () => {
     const [selectedSort, setSelectedSort] = useState<string>('');
@@ -18,7 +18,7 @@ const ProductPage = () => {
 
 
     const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedSort(event.target.value); // Update selected sort value
+        setSelectedSort(event.target.value);
     };
 
 

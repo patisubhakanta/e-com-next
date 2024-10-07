@@ -1,8 +1,6 @@
 
 "use client";
-import ProductDetails from '@/app/components/Product/ProductDeatails'
-import React from 'react'
-
+import ProductDetails from "../../components/Product/ProductDeatails";
 
 interface ProductDetailsProps {
   params: {

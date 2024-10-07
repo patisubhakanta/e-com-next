@@ -1,7 +1,6 @@
-
 "use client";
-import CartItems from "../components/Cart/Cart";
 
+import CartItems from "../components/Cart/Cart";
 
 const Cart = () => {
     return (
@@ -9,4 +8,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default Cart;

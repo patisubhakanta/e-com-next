@@ -1,8 +1,9 @@
-import { useCart } from "@/app/context/CartContext";
-import React from "react";
+"use client";
+
+import { useCart } from "../../context/CartContext";
+import useCheckout from "../../hooks/useCheckout";
+import { formatCurrency } from "../../utils";
 import CartItemCard from "./CartCard";
-import { formatCurrency } from "@/app/utils";
-import useCheckout from "@/app/hooks/useCheckout";
 import { useRouter } from "next/navigation";
 
 
@@ -10,7 +11,6 @@ const CartItems = () => {
     const { cart, clearCart } = useCart();
     const { checkout } = useCheckout();
     const router = useRouter();
-    const token = localStorage.getItem('token');
 
     const grandTotal = cart.reduce((total, checkoutProduct) => {
         const { product, quantity } = checkoutProduct;
@@ -18,6 +18,7 @@ const CartItems = () => {
     }, 0);
 
     const handleCheckout = async () => {
+        const token = localStorage.getItem('token');
         if (token) {
             try {
                 const response = await checkout(cart);

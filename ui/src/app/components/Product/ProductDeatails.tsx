@@ -1,11 +1,9 @@
-"use client"
-import { useCart } from '@/app/context/CartContext';
-import useProductById from '@/app/hooks/useProductById';
-import { formatCurrency } from '@/app/utils';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+"use client";
 
-
+import  { useEffect, useState } from 'react';
+import { useCart } from '../../context/CartContext';
+import useProductById from '../../hooks/useProductById';
+import { formatCurrency } from '../../utils';
 
 const ProductDetails = ({ id }: { id: string | undefined }) => {
     const [qty, setQty] = useState(0)

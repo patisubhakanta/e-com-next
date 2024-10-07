@@ -1,8 +1,9 @@
-"use client"
-import { useCart } from "@/app/context/CartContext";
-import { IProduct } from "@/app/types/Types";
-import { formatCurrency } from "@/app/utils";
-import React, { useEffect, useState } from "react";
+"use client";
+
+import  { useEffect, useState } from "react";
+import { IProduct } from "../../types/Types";
+import { useCart } from "../../context/CartContext";
+import { formatCurrency } from "../../utils";
 
 
 const ProductCard = ({ product }: { product: IProduct }) => {
