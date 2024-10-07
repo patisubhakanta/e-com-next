@@ -13,9 +13,8 @@ export const forgetPassword = async (req: Request, res: Response) => {
         }
 
         // Update the user's password
-        user.password = newPassword; // Assign the new password directly
+        user.password = newPassword;
         await user.save();
-
         return res.status(200).json({ message: 'Password updated successfully' });
     } catch (error) {
         console.error('Error updating password:', error);

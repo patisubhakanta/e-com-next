@@ -19,7 +19,7 @@ export const placeOrder = async (req: Request, res: Response) => {
             qty: product.qty,
             price: product.price,
             total: product.qty * product.price,
-            productImage: product.productImage, // Ensure to send product image in request
+            productImage: product.productImage,
         }));
 
         // Create the order structure
