@@ -35,3 +35,7 @@ export interface IOrder extends Document {
     orders: IOrderItem[];
   }[];
 }
+export interface IWishlist {
+  userId: string;
+  orders: {productId:string}[];
+}

@@ -4,6 +4,7 @@ import cors from "cors";
 import ProductRoutes from "./routes/ProductRoutes";
 import AuthRoutes from "./routes/AuthRoutes";
 import OrderRoutes from "./routes/OrderRoute";
+import WishlistRoutes from "./routes/Wishlist";
 import connectDB from "./db/mongodb";
 
 dotenv.config();
@@ -25,6 +26,7 @@ connectDB(mongoUri);
 app.use("/api", ProductRoutes);
 app.use("/api/auth", AuthRoutes);
 app.use("/api", OrderRoutes);
+app.use("/api", WishlistRoutes)
 
 // Start the server
 app.listen(PORT, () => {
