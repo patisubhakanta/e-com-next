@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-    "jsx": "preserve", // or "react-jsx" for React 17+
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "target": "es5",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,25 +8,19 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
-    "noEmit": true,
-    "incremental": true,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
   "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "src"
+, "src/components/Skeleton/.tsx"  ]
 }

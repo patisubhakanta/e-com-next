@@ -12,8 +12,6 @@ const orderSchema = new Schema<IOrder>({
                     productId: { type: String, required: true },
                     qty: { type: Number, required: true },
                     price: { type: Number, required: true },
-                    total: { type: Number, required: true },
-                    productImage: { type: String, required: true },
                 },
             ],
         },

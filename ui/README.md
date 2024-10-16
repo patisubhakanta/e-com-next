@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# React E-commerce Project
+
+This is a React-based e-commerce application featuring a product page, product details page, user profile page, and a wishlist functionality. The application is designed to provide users with a seamless shopping experience.
+
+## Table of Contents
+
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+1. **Product Page**: 
+   - Displays a list of available products.
+   - Users can search and sort products based on price.
+
+2. **Product Details Page**: 
+   - Provides detailed information about a selected product, including images, descriptions.
+   - Users can add products to their cart from this page.
+
+3. **Profile Page**: 
+   - Displays user order history.
+
+4. **Wishlist**: 
+   - Users can add products to their wishlist for later purchase.
+   - Users can view, remove items from the wishlist, and proceed to checkout.
+
+## Technologies Used
+
+- **React**: A JavaScript library for building user interfaces.
+- **React Router**: For navigation between different pages.
+- **Context API**: For state management.
+- **TailwindCSS**: For styling the components.
+- **Axios**: For making API calls to retrieve product data.
+
+## .env
+- **.env.sample** : Add BE URL
 
 ## Getting Started
 
-First, run the development server:
+- ```cd ui```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- ```npm install``` 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ```.env```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ```npm start```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

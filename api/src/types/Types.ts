@@ -15,17 +15,10 @@ export interface IUser extends Document {
   createdAt:any;
 }
 
-interface ICartItem {
-  productId: mongoose.Schema.Types.ObjectId;
-  quantity: number;
-}
-
 export interface IOrderItem {
   productId: string;
   qty: number;
   price: number;
-  total: number;
-  productImage: string;
 }
 
 export interface IOrder extends Document {
