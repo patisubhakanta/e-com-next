@@ -4,14 +4,14 @@ import Header from "./components/Header/Header";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 
-import HomePage from "./pages/Home";
+import HomePage from "./pages/home";
 import ProductPage from "./pages/product/[id]";
 import SignupPage from "./pages/auth/signup";
 import Login from "./pages/auth/login";
 import ResetPassword from "./pages/auth/reset-password";
 import ProfilePage from "./pages/profile";
 import Cart from "./pages/cart";
-import SuccessPage from "./pages/SuccessPage";
+import SuccessPage from "./pages/successpage";
 import Wishlist from "./pages/wishlist";
 
 
