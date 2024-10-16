@@ -4,14 +4,14 @@ import Header from "./components/Header/Header";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
 
-import HomePage from "./pages/home";
+import HomePage from "./pages/homepage";
 import ProductPage from "./pages/product/[id]";
 import SignupPage from "./pages/auth/signup";
 import Login from "./pages/auth/login";
 import ResetPassword from "./pages/auth/reset-password";
 import ProfilePage from "./pages/profile";
 import Cart from "./pages/cart";
-import SuccessPage from "./pages/successpage";
+import OrderPlaced from "./pages/orderplaced";
 import Wishlist from "./pages/wishlist";
 
 
@@ -20,24 +20,24 @@ function App() {
     <Router>
       <CartProvider>
         <WishlistProvider>
-        <div className="container">
-          <Header />
+          <div className="container">
+            <Header />
 
-          <div className="min-h-screen p-4">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ResetPassword />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/successPage" element={<SuccessPage />} />
-              <Route path="/wishlist" element={<Wishlist />} />
+            <div className="min-h-screen p-4">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/product/:id" element={<ProductPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/forgot-password" element={<ResetPassword />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/successPage" element={<OrderPlaced />} />
+                <Route path="/wishlist" element={<Wishlist />} />
 
-            </Routes>
+              </Routes>
+            </div>
           </div>
-        </div>
         </WishlistProvider>
       </CartProvider>
     </Router>

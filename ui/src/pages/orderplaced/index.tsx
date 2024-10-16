@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/icon.png"
 
-const SuccessPage: React.FC = () => {
+const OrderPlaced: React.FC = () => {
 
     const navigate = useNavigate();
 
@@ -30,4 +30,4 @@ const SuccessPage: React.FC = () => {
     );
 };
 
-export default SuccessPage;
+export default OrderPlaced;
