@@ -1,5 +1,5 @@
 
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const API = {
     PRODUCTS: {
@@ -20,6 +20,11 @@ export const API = {
         VIEW_WISHLIST: API_BASE_URL + "/wishlist",
         ADD_WISHLIST: API_BASE_URL + "/wishlist/add",
         REMOVEWISHLIST: API_BASE_URL + "/wishlist/remove"
+    },
+    CART:{
+        ADD: API_BASE_URL + "/cart/add",
+        REMOVE:API_BASE_URL +  "/cart/remove",
+        VIEW:API_BASE_URL +  "/cart/view",
     }
 
 }

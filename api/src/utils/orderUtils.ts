@@ -1,6 +1,6 @@
 
-import Product from '../modals/Product';
 import { ERROR_MESSAGE } from '../constatnts/messages';
+import Product from '../modals/productModal';
 
 // Function to fetch detailed product information for each order item
 export const getFullOrderDetails = async (orders: any[]) => {
@@ -22,15 +22,15 @@ export const getFullOrderDetails = async (orders: any[]) => {
                                 description: product.description,
                                 inStock: product.inStock,
                                 image: product.image,
-                                qty: orderItem.qty,       // Include quantity from IOrderItem
-                                price: orderItem.price     // Include price from IOrderItem
+                                qty: orderItem.qty,       
+                                price: orderItem.price     
                             };
                         })
                     );
 
                     return {
-                        timestamp: item.timestamp, // Include the timestamp from items
-                        orders: detailedOrders,    // Detailed product data for each order
+                        timestamp: item.timestamp,
+                        orders: detailedOrders,   
                     };
                 })
             );

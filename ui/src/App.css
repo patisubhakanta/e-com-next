@@ -1,6 +1,0 @@
-.container {
-  max-width: 1600px; /* Change this value to your desired maximum width */
-  margin: 0 auto; /* This centers the div horizontally */
-  padding: 0px; /* Change this value to your desired padding */
-  box-sizing: border-box; /* This includes padding and border in the total width and height of the element */
-}

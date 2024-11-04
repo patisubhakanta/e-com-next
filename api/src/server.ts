@@ -1,7 +1,7 @@
 import express, { Application } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import routes from "./routes/Routes";
+import routes from "./routes/allRoutes";
 
 import connectDB from "./config/db";
 
@@ -21,9 +21,10 @@ app.use(cors());
 connectDB(mongoUri);
 
 // Routes
-app.use(routes);
+app.use('/api', routes);
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+export default app;

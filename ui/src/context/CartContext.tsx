@@ -1,74 +1,100 @@
+"use client";
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { IProduct } from '../types/Types';
+import { addItemsToCart, removeItemFromCart } from '@/service/cartService';
 
-// Define the shape of a product in the cart
+
 interface CartItem {
-    product: IProduct; // Storing the full product object
+    product: IProduct;
     quantity: number;
 }
 
-// Define the context type
 interface CartContextType {
     cart: CartItem[];
-    addToCart: (product: IProduct, quantity: number) => void;
-    removeFromCart: (productId: string) => void;
+    addToCart: (product: IProduct, quantity: number, isSignIn?: boolean) => void;
+    removeFromCart: (productId: string,isOrder?:boolean) => void;
     clearCart: () => void;
 }
 
-// Create the context
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Helper function to get cart from localStorage
+const isBrowser = typeof window !== 'undefined';
+
 const getCartFromLocalStorage = (): CartItem[] => {
+    if (!isBrowser) return []; 
     const storedCart = localStorage.getItem('cart');
     return storedCart ? JSON.parse(storedCart) : [];
 };
 
-// Helper function to save cart to localStorage
 const saveCartToLocalStorage = (cart: CartItem[]) => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    if (isBrowser) {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 };
 
-// Create a provider component
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [cart, setCart] = useState<CartItem[]>(getCartFromLocalStorage());
+    const [cart, setCart] = useState<CartItem[]>(getCartFromLocalStorage);
 
-    // Update localStorage whenever the cart changes
     useEffect(() => {
+        // Initialize cart from localStorage on component mount
+        if (isBrowser) {
+            setCart(getCartFromLocalStorage());
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save cart to localStorage whenever cart changes
         saveCartToLocalStorage(cart);
     }, [cart]);
 
-    // Add to cart
-    const addToCart = (product: IProduct, quantity: number) => {
+    const addToCart = async (product: IProduct, quantity: number, isSignIn?: boolean) => {
+        const token = sessionStorage.getItem('token');
+        const existingItem = cart.find(item => item.product._id === product._id);
+
+        if (token && !isSignIn) {
+            try {
+                await addItemsToCart([{
+                    productId: product._id,
+                    quantity: Number(existingItem?.quantity) ?Number(existingItem?.quantity)   + 1 : 1
+                }]);
+            } catch (error) {
+                console.error('Error adding item to server cart:', error);
+            }
+        }
+
         setCart((prev) => {
             const existingItem = prev.find(item => item.product._id === product._id);
             if (existingItem) {
-                // Update the quantity if the product already exists in the cart
                 return prev.map(item =>
                     item.product._id === product._id
                         ? { ...item, quantity: item.quantity + quantity }
                         : item
                 );
             }
-            // Add new product to the cart
             return [...prev, { product, quantity }];
         });
     };
 
-    // Remove from cart
-    const removeFromCart = (productId: string) => {
+    const removeFromCart = async (productId: string,isOrder?:boolean) => {
+        const token = sessionStorage.getItem('token');
+        if (token && !isOrder) {
+            try {
+                await removeItemFromCart(productId);
+            } catch (error) {
+                console.error('Error removing item from server cart:', error);
+            }
+        }
+
         setCart((prev) => {
             const existingItem = prev.find(item => item.product._id === productId);
             if (existingItem) {
                 if (existingItem.quantity > 1) {
-                    // Decrease quantity if more than one
                     return prev.map(item =>
                         item.product._id === productId
                             ? { ...item, quantity: item.quantity - 1 }
                             : item
                     );
                 } else {
-                    // Remove item if only one left
                     return prev.filter(item => item.product._id !== productId);
                 }
             }
@@ -76,7 +102,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         });
     };
 
-    // Clear the entire cart
     const clearCart = () => {
         setCart([]);
     };
@@ -88,7 +113,6 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     );
 };
 
-// Create a custom hook to use the CartContext
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {

@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { API } from '../route/Route';
+import { OrdersResponse } from '@/types/Types';
 
 const useFetchOrder = () => {
-    const [data, setData] = useState<any>(null); // Replace `any` with your expected data type
+    const [data, setData] = useState<OrdersResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchOrder = async () => {
-            const userId = localStorage.getItem('userId'); // Make sure to set this in localStorage
-            const token = localStorage.getItem('token');
-
+            const userId = localStorage.getItem('userId');
+            const token = sessionStorage.getItem('token');
             if (!userId || !token) {
                 setError('User ID or token is missing.');
                 setLoading(false);
@@ -27,8 +27,9 @@ const useFetchOrder = () => {
                 });
 
                 setData(response.data);
-            } catch (err: any) {
-                setError(err.response?.data?.message || err.message || 'An error occurred');
+            } catch (err) {
+                const error = err as AxiosError<{ message: string }>;
+                setError(error.response?.data?.message || error.message || 'An error occurred');
             } finally {
                 setLoading(false);
             }

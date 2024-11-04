@@ -5,7 +5,8 @@ export interface IProduct  {
   inStock: boolean;
   image?: string;
   _id:string;
-  qty?:number
+  qty?:number;
+  productId?:string 
 }
 
 export interface IUser  {
@@ -39,4 +40,19 @@ export interface UseWishlistResult {
 export interface RemoveWishlistItemResponse {
   success: boolean;
   message: string;
+}
+export interface OrderProductDTO  {
+  orders: IProduct[]
+  timestamp:string
+}
+
+export interface Order {
+  userId: string;
+  items:OrderProductDTO[];
+}
+
+// Root response containing orders
+export interface OrdersResponse {
+  orders: Order[];
+  username:string
 }

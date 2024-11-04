@@ -17,7 +17,7 @@ interface CheckoutResponse {
 
 const useCheckout = () => {
     const checkout = useCallback(async (cart: { product: IProduct; quantity: number }[]): Promise<CheckoutResponse> => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
 
         const products = cart.map((checkoutProduct) => {
             const { product, quantity } = checkoutProduct;

@@ -1,25 +1,33 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { IProduct } from '../types/Types';
 import { API } from '../route/Route';
 
-// Custom hook to handle fetching and sorting products
-const useProducts = (sortOrder: string = '') => {
+interface UseProductsReturn {
+  products: IProduct[];
+  recommend: IProduct[];
+  loading: boolean;
+  error: string | null;
+}
+
+const useProducts = (sortOrder: string = '', searchQuery: string = ''): UseProductsReturn => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [recommend, setRecommend] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch all products using Axios, with optional sorting
   const fetchProducts = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response:any = await axios.get(API.PRODUCTS.ALL_PRODUCTS, {
-        params: { sort: sortOrder },
+      const response = await axios.get(API.PRODUCTS.ALL_PRODUCTS, {
+        params: { sort: sortOrder, search: searchQuery },
       });
-      setProducts(response.data);
-    } catch (err: any) {
-      setError(err.response?.data?.message || err.message);
+      setProducts(response.data.products);
+      setRecommend(response.data.recommend || []);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      setError(error.response?.data?.message || 'An error occurred while fetching products.');
     } finally {
       setLoading(false);
     }
@@ -27,10 +35,11 @@ const useProducts = (sortOrder: string = '') => {
 
   useEffect(() => {
     fetchProducts();
-  }, [sortOrder]); // Fetch products again whenever sortOrder changes
+  }, [sortOrder, searchQuery]);
 
   return {
     products,
+    recommend,
     loading,
     error,
   };

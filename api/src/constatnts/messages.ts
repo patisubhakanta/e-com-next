@@ -41,5 +41,9 @@ export const SUCESS_MESSAGE = {
     },
     SIGN_UP:{
         201:'User registered successfully'
-    }
+    },
+    CART: {
+        201: 'Products added successfully',
+        200:"Product Removed from Cart"
+    },
 }

@@ -1,8 +1,8 @@
 import { API } from "../route/Route";
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 export const removeItemFromWishlistAPI = async (_id:string) => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
         throw new Error('No token found');
@@ -18,17 +18,15 @@ export const removeItemFromWishlistAPI = async (_id:string) => {
                 }
             }
         );
-    } catch (error: any) {
-        // Handle errors
-        throw new Error(error.response?.data?.message || "Failed to remove item from wishlist");
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        const errorMessage = axiosError.response?.data?.message || "Failed to remove item from wishlist";
+        throw new Error(errorMessage);
     }
 };
 
 export const addItemToWishlistAPI = async (_id: string) => {
-    const token = localStorage.getItem('token');
-
-    // Log the token for debugging
-    console.log('Token:', token); 
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
         throw new Error('No token found');
@@ -44,13 +42,10 @@ export const addItemToWishlistAPI = async (_id: string) => {
                 }
             }
         );
-
-        // Log the response to check if it's successful
-        console.log('Response from API:', response.data); 
         return response.data;  
-    } catch (error: any) {
-        // Log the entire error for better debugging
-        console.error('API call error:', error); 
-        throw new Error(error.response?.data?.message || "Failed to add item to wishlist");
+    } catch (error) {
+        const axiosError = error as AxiosError<{ message: string }>;
+        const errorMessage = axiosError.response?.data?.message || "Failed to remove item from wishlist";
+        throw new Error(errorMessage);
     }
 };

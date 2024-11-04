@@ -1,3 +1,4 @@
+"use client";
 import { useCart } from "../../context/CartContext";
 import { IProduct } from "../../types/Types";
 import { formatCurrency } from "../../utils";
@@ -8,18 +9,18 @@ const CartItemCard = ({ product, qty, total }: { product: IProduct, qty: number,
     const { _id, name, price, description, image } = product
     return (
         <>
-            <div className="max-w-full mx-auto py-4 pr-12 pl-2">
-                <div className="mb-4 p-4 flex-col md:flex-row items-center justify-between">
+            <div className="max-w-full mx-auto py-4 pr-0 md:pr-12 pl-2">
+                <div className="flex flex-col md:flex-row items-center justify-between">
                     <div className="relative">
                         <img className="w-60 h-60 object-contain rounded-lg" src={image} alt={name} />
                     </div>
-                    <div className="flex-1 ml-6">
+                    <div className="ml-6">
                         <h2 className="text-lg font-bold text-gray-800">{name}</h2>
                         <p className="text-gray-600 mt-2">{description}</p>
                         <p className="text-xl font-bold text-gray-800 mt-4">{formatCurrency(price)}/-</p>
 
                     </div>
-                    <div className="w-full flex items-end justify-end mt-4 ml-4">
+                    <div className="w-full flex items-end justify-center md:justify-end mt-4 ml-4">
                         <div className="flex items-center space-x-4">
                             <button
                                 onClick={(e) => {
@@ -44,7 +45,7 @@ const CartItemCard = ({ product, qty, total }: { product: IProduct, qty: number,
                         </div>
                     </div>
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-center md:justify-end mt-4 md:mt-0 ml-2 md:ml:0">
                     <span className="text-xl font-semibold">Total: {formatCurrency(total)}</span>
                 </div>
                 <hr className="h-px bg-gray-900 my-2" />

@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { WishlistContextType } from '../types/Types';
 
@@ -6,13 +7,18 @@ const WishlistContext = createContext<WishlistContextType | undefined>(undefined
 
 // Helper function to get wishlist from localStorage
 const getWishlistFromLocalStorage = (): string[] => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    return storedWishlist ? JSON.parse(storedWishlist) : [];
+    if (typeof window !== 'undefined') { // Check if running in the browser
+        const storedWishlist = localStorage.getItem('wishlist');
+        return storedWishlist ? JSON.parse(storedWishlist) : [];
+    }
+    return []; // Return an empty array if not in the browser
 };
 
 // Helper function to save wishlist to localStorage
 const saveWishlistToLocalStorage = (wishlist: string[]) => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    if (typeof window !== 'undefined') { // Check if running in the browser
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    }
 };
 
 // Create a provider component
@@ -37,7 +43,6 @@ export const WishlistProvider: React.FC<{ children: ReactNode }> = ({ children }
     // Remove a product ID from the wishlist
     const removeFromWishlist = (productId: string) => {
         setWishlistState((prev) => prev.filter(id => id !== productId));
-       
     };
 
     // Replace the entire wishlist (for example, when fetching from API)

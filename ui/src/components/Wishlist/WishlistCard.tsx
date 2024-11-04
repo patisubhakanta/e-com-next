@@ -1,3 +1,4 @@
+"use client";
 import { TrashIcon } from "@heroicons/react/16/solid";
 import { useCart } from "../../context/CartContext";
 import { IProduct } from "../../types/Types";
@@ -6,22 +7,22 @@ import { removeItemFromWishlistAPI } from "../../service/wishlistService";
 import { useWishlist } from "../../context/WishlistContext";
 
 const WishlistItemCard = ({ product }: { product: IProduct }) => {
-    const { addToCart} = useCart();
+    const { addToCart } = useCart();
     const { removeFromWishlist } = useWishlist()
 
     const { _id, name, image, description, price } = product
 
     return (
-        <div className="max-w-full mx-auto py-4">
+        <div id="wishlist" className="max-w-full mx-auto py-4">
             <div className="w-full flex justify-end md:hidden">
-                        <button onClick={async () => {
-                            await removeItemFromWishlistAPI(_id)
-                            removeFromWishlist(_id)
-                        }
-                        }>
-                            <TrashIcon className="w-5 h-5 text-gray-300" />
-                        </button>
-                    </div>
+                <button onClick={async () => {
+                    await removeItemFromWishlistAPI(_id)
+                    removeFromWishlist(_id)
+                }
+                }>
+                    <TrashIcon className="w-5 h-5 text-gray-300" />
+                </button>
+            </div>
             <div className="mb-4 p-4 flex flex-col md:flex-row items-center justify-between">
                 <div className="relative">
                     <img className="w-60 h-60 object-contain rounded-lg" src={image} alt={name} />

@@ -1,151 +1,122 @@
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { XCircleIcon } from "@heroicons/react/16/solid";
-
-import ProductCard from "./ProductCard";
 import useProducts from "../../hooks/useProducts";
-import { IProduct } from "../../types/Types";
-import { API } from "../../route/Route";
-import ErrorUI from "../Error";
-import ProductSkeleton from "../Skeleton/ProductLoading";
-
+import ProductSkeleton from "../skeleton/ProductLoading";
+import ErrorUI from "../error";
+import ProductCard from "./ProductCard";
+import Link from "next/link";
+import { IProduct } from "@/types/Types";
+import debounce from "lodash/debounce"; 
+import useViewWishlist from "@/hooks/useViewWishlist";
 
 const ProductPage = () => {
-    const [selectedSort, setSelectedSort] = useState<string>('');
-    const { products, loading, error } = useProducts(selectedSort);
+  const [selectedSort, setSelectedSort] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
+  const { wishlist  } = useViewWishlist()
 
-    const [query, setQuery] = useState<string>('');
+  const { products, recommend, loading, error } = useProducts(selectedSort, query);
 
-    const [data, setData] = useState<IProduct[]>([])
-    const [recommend, setRecommend] = useState<IProduct[]>([])
+  // Use useEffect to debounce the inputValue changes
+  useEffect(() => {
+    const debouncedSearch = debounce((value: string) => {
+      if (value.length >= 3) {
+        setQuery(value.trim().replace(" ", "-"));
+      } else {
+        setQuery("");
+      }
+    }, 700); 
 
-    const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedSort(event.target.value);
+    // Call the debounced function with the current input value
+    debouncedSearch(inputValue);
+
+    // Cleanup function to cancel the debounced call on component unmount or inputValue change
+    return () => {
+      debouncedSearch.cancel();
     };
+  }, [inputValue]);
 
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedSort(event.target.value);
+  };
 
-    useEffect(() => {
-        setData(products)
-    }, [products])
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value); // Update input value state
+  };
 
+  const clearFilters = () => {
+    setSelectedSort("");
+    setInputValue(""); // Clear input field as well
+    setQuery(""); // Clear the query
+  };
 
-    const handleSearch = () => {
-        if (query.trim()) {
-            searchProduct(query.trim().replace(" ", "-"))
-        } else {
-            console.log('Please enter a search term');
-        }
-    };
+  // if (loading) return <ProductSkeleton />;
+  if (error) return <ErrorUI message={error} />;
 
+  return (
+    <div id="product">
+      <div className="w-full flex flex-col justify-center items-center py-10">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center lg:justify-between">
+          <div className="flex justify-center items-center mt-4">
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Search..."
+              className="border border-gray-300 rounded-l px-4 py-2 w-64 outline-none"
+            />
+          </div>
+          <div className="flex items-start px-4 py-8">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                value="low-to-high"
+                checked={selectedSort === "low-to-high"}
+                onChange={handleSortChange}
+                className="form-radio"
+              />
+              <span>Low to High</span>
+            </label>
+            <label className="flex items-center space-x-2 mx-4">
+              <input
+                type="radio"
+                value="high-to-low"
+                checked={selectedSort === "high-to-low"}
+                onChange={handleSortChange}
+                className="form-radio"
+              />
+              <span>High to Low</span>
+            </label>
+            {selectedSort && <button onClick={clearFilters}><XCircleIcon className="w-6 h-6" /></button>}
+          </div>
+        </div>
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(e.target.value);
-        if (e.target.value === "") {
-            setData(products)
-        }
-    };
+        <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-8 w-full">
+          {!loading ? products.map((product: IProduct) => (
+            <Link passHref href={`/product/${product._id}`} key={product._id}>
+              <ProductCard product={product} wishlisAPI={wishlist} />
+            </Link>
+          )) :  Array.from({ length: 6 }).map((_, index) => (
+            <ProductSkeleton key={index} />
+          ))}
+        </div>
 
-    const searchProduct = async (productName: string) => {
-        try {
-            const response: any = await axios.get(API.PRODUCTS.SEARCH.replace("{0}", productName), {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            setData(response.data.products)
-            setRecommend(response.data.recommend)
-        } catch (error) {
-            console.error('Error while searching for the product:', error);
-            throw error;
-        }
-    };
-
-    if (loading) return <ProductSkeleton />;
-
-    if (error) return <ErrorUI message={error} />;
-
-    return (
-        <>
-            <div className="max-w-[1600px] mx-0 my-auto px-0 py-0 w-[100%] bg-[#fffdf9]">
-                <div className="w-full flex flex-col justify-center items-center py-10">
-                    <div className="w-full flex flex-col item-center justify-center">
-                        <div className="flex justify-center items-center mt-4">
-                            <input
-                                type="text"
-                                value={query}
-                                onChange={handleInputChange}
-                                placeholder="Search..."
-                                className="border border-gray-300 rounded-l px-4 py-2 w-64"
-                            />
-                            <button
-                                onClick={handleSearch}
-                                className="bg-blue-500 hover:bg-blue-600 text-white rounded-r px-4 py-2"
-                            >
-                                Search
-                            </button>
-                        </div>
-                        <div className="flex items-start px-4 py-8">
-                            <label className="flex items-center space-x-2">
-                                <input
-                                    type="radio"
-                                    value="low-to-high"
-                                    checked={selectedSort === 'low-to-high'}
-                                    onChange={handleSortChange}
-                                    className="form-radio"
-                                />
-                                <span>Low to High</span>
-                            </label>
-
-                            <label className="flex items-center space-x-2 mx-4">
-                                <input
-                                    type="radio"
-                                    value="high-to-low"
-                                    checked={selectedSort === 'high-to-low'}
-                                    onChange={handleSortChange}
-                                    className="form-radio"
-                                />
-                                <span>High to Low</span>
-                            </label>
-                            {selectedSort ? <button onClick={() => {
-                                setSelectedSort("");
-                                setQuery("")
-                            }}> <XCircleIcon className="w-6 h-6" /> </button> : null}
-
-                        </div>
-
-                    </div>
-                    <div className="w-full">
-                        {data.length && data.map((product: IProduct, index) => {
-                            return (
-                                <Link to={`/product/${product._id}`} key={product._id}>
-                                    <ProductCard product={product} />
-                                </Link>
-                            )
-                        })}
-                    </div>
-                    {recommend.length ?
-                        <div className="w-full flex flex-col items-center">
-                            <div>
-                                Recommend
-                            </div>
-                            <hr />
-                            <div className="w-full">
-                                {recommend.length && recommend.map((product: IProduct, index) => {
-                                    return (
-                                        <Link to={`/product/${product._id}`} key={product._id}>
-                                            <ProductCard product={product} />
-                                        </Link>
-                                    )
-                                })}
-                            </div>
-                        </div> : null}
-                </div>
+        {recommend.length > 0 && (
+          <div className="w-full flex flex-col items-center">
+            <h2>Recommended</h2>
+            <hr />
+            <div className="w-full">
+              {recommend.map((product: IProduct) => (
+                <Link passHref href={`/product/${product._id}`} key={product._id}>
+                  <ProductCard product={product} wishlisAPI={wishlist} />
+                </Link>
+              ))}
             </div>
-
-
-        </>
-    );
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProductPage;

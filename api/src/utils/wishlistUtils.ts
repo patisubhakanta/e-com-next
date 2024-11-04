@@ -1,5 +1,5 @@
-import Wishlist from '../modals/Wishlist';
-import Product from '../modals/Product';
+import Product from '../modals/productModal';
+import Wishlist from '../modals/wishlistModal';
 import { IWishlist } from '../types/Types';
 
 // Function to get full product details from the wishlist

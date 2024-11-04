@@ -1,16 +1,17 @@
-
-import { useNavigate } from "react-router-dom";
+"use client";
+import { useRouter } from "next/navigation";
 import { useCart } from "../../context/CartContext";
 import useCheckout from "../../hooks/useCheckout";
 import { formatCurrency } from "../../utils";
 import CartItemCard from "./CartCard";
-
+import { IProduct } from "@/types/Types";
+import { AxiosError } from "axios";
 
 
 const CartItems = () => {
     const { cart, clearCart } = useCart();
     const { checkout } = useCheckout();
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const grandTotal = cart.reduce((total, checkoutProduct) => {
         const { product, quantity } = checkoutProduct;
@@ -18,26 +19,29 @@ const CartItems = () => {
     }, 0);
 
     const handleCheckout = async () => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         if (token) {
             try {
                 const response = await checkout(cart);
                 if (response) {
-                    navigate("/successPage")
+                    router.push("/successPage")
                     clearCart()
                 }
-            } catch (error) {
-                alert('Checkout failed, please try again.');
+            } catch (err) {
+                const error = err as AxiosError<{ message: string }>;
+                if (err) {
+                    alert(error.response?.data?.message || 'Login failed!');
+                }
             }
         } else {
-            navigate("/login")
+            router.push("/login")
         }
     };
     return (
         <>
             {cart.length ?
-                <div className="mt-[200px] min-h-[70vh] pb-10">
-                    {cart.map((checkoutProduct: any) => {
+                <div className="mt-[100px] min-h-[70vh] pb-10">
+                    {cart.map((checkoutProduct: {product:IProduct,quantity:number}) => {
                         const { product,
                             quantity
                         } = checkoutProduct
@@ -48,18 +52,17 @@ const CartItems = () => {
                             </div>
                         )
                     })}
-                    <div className="w-full flex justify-end mt-10">
-                        <div className="font-bold text-xl mb-2">Total : {formatCurrency(grandTotal)}/-</div>
-                    </div>
-                    <div className="w-full flex justify-center my-10">
+                    <div className="w-full flex justify-end items-center mt-10 ">
+                        <p className="font-bold text-xl">Total : {formatCurrency(grandTotal)}/-</p>
+                   
                         <button
                             onClick={handleCheckout}
-                            className="px-8 w-contain text-white p-2 rounded hover:bg-blue-600 bg-blue-500"
+                            className="px-8 w-contain text-white py-2 rounded hover:bg-blue-600 bg-blue-500 ml-10"
                         >
                             Place Order
                         </button>
                     </div>
-                </div> : <div className="mt-[200px] h-[70vh]"> No product added</div>}
+                </div> : <h4 className="mt-[200px] h-[70vh]"> No product added</h4>}
         </>
     );
 };

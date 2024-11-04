@@ -1,21 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { API } from '../route/Route';
+import { UseWishlistResult, WishlistItem } from '@/types/Types';
 
-interface WishlistItem {
-    _id: string;
-    name: string;
-    description?: string;
-    price: number;
-    inStock: boolean;
-    image?: string;
-}
 
-interface UseWishlistResult {
-    wishlist: WishlistItem[] | null;
-    loading: boolean;
-    error: string | null;
-}
 
 const useViewWishlist = (): UseWishlistResult => {
     const [wishlist, setWishlist] = useState<WishlistItem[] | null>(null);
@@ -24,7 +12,7 @@ const useViewWishlist = (): UseWishlistResult => {
 
     useEffect(() => {
         const fetchWishlist = async () => {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             if (!token) {
                 setError("No token provided");
                 setLoading(false);
@@ -38,9 +26,9 @@ const useViewWishlist = (): UseWishlistResult => {
                     }
                 });
                 setWishlist(response.data);
-            } catch (err: any) {
-                console.log(error)
-                setError(err.response?.data?.message || "Something went wrong");
+            } catch (err) {
+                const error = err as AxiosError<{ message: string }>;
+                setError(error.response?.data?.message || "Something went wrong");
             } finally {
                 setLoading(false);
             }
