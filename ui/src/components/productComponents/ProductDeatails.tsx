@@ -5,13 +5,12 @@ import useCheckout from '../../hooks/useCheckout';
 import useProductById from '../../hooks/useProductById';
 import { formatCurrency } from '../../utils';
 import { useCart } from '../../context/CartContext';
-
-import ErrorUI from '../error';
 import { useRouter } from 'next/navigation';
 import { addItemToWishlistAPI, removeItemFromWishlistAPI } from '@/service/wishlistService';
 import { HeartIcon } from '@heroicons/react/16/solid';
 import { useWishlist } from '@/context/WishlistContext';
 import { AxiosError } from 'axios';
+import ErrorUI from '../errorComponent';
 
 
 const ProductDetails = ({ id }: { id: string | undefined }) => {
