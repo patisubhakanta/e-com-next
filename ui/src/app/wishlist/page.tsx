@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import WishListItems from "@/components/wishlist/WishlistItems";
 import withAuth from "../auth/withAuth";
+import WishListItems from "@/components/wishlistComponents/WishlistItems";
 
 
 const Wishlist = () => {

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { XCircleIcon } from "@heroicons/react/16/solid";
 import useProducts from "../../hooks/useProducts";
-import ProductSkeleton from "../skeleton/ProductLoading";
 import ErrorUI from "../error";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
 import { IProduct } from "@/types/Types";
 import debounce from "lodash/debounce"; 
 import useViewWishlist from "@/hooks/useViewWishlist";
+import ProductSkeleton from "../skeletonComponents/ProductLoading";
 
 const ProductPage = () => {
   const [selectedSort, setSelectedSort] = useState<string>("");

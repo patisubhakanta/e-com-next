@@ -1,12 +1,11 @@
 "use client";
 import useViewWishlist from "../../hooks/useViewWishlist";
 
-
-import ProductSkeleton from "../skeleton/ProductLoading";
 import ErrorUI from "../error";
 import { useWishlist } from "../../context/WishlistContext";
 import WishlistItemCard from "./WishlistCard";
 import { IProduct } from "@/types/Types";
+import ProductSkeleton from "../skeletonComponents/ProductLoading";
 
 const WishListItems = () => {
     const { error, loading, wishlist: wishlistAPI } = useViewWishlist();
