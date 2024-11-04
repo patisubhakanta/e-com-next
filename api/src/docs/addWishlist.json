@@ -1,0 +1,56 @@
+{
+    "api": {
+      "endpoint": "/api/wishlist/add",
+      "method": "POST",
+      "request": {
+        "description": "Request payload to add an item to the user's wishlist",
+        "body": {
+          "_id": "string (required) - Product ID of the item to add"
+        },
+        "example": {
+          "_id": "60a3c5b5f08c1a5d00f4c5b6"
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Successful addition of the product to the wishlist",
+          "body": {
+            "message": "string",
+            "_id": "string"
+          },
+          "example": {
+            "message": "Product added to wishlist successfully.",
+            "_id": "60a3c5b5f08c1a5d00f4c5b6"
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "400": {
+          "description": "Bad Request - Product already exists in the wishlist",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Product is already in your wishlist."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,81 @@
+{
+    "api": {
+      "endpoint": "/api/orders",
+      "method": "POST",
+      "description": "Handles the placement of an order by a user.",
+      "requestBody": {
+        "products": [
+          {
+            "productId": "string",
+            "qty": "number",
+            "price": "number"
+          }
+        ]
+      },
+      "responses": {
+        "201": {
+          "description": "Successful order placement.",
+          "body": {
+            "message": "string",
+            "order": {
+              "userId": "string",
+              "items": [
+                {
+                  "timestamp": "date",
+                  "orders": [
+                    {
+                      "productId": "string",
+                      "qty": "number",
+                      "price": "number"
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "example": {
+            "message": "Order placed successfully.",
+            "order": {
+              "userId": "60a3c5b5f08c1a5d00f4c5b6",
+              "items": [
+                {
+                  "timestamp": "2024-11-04T12:34:56Z",
+                  "orders": [
+                    {
+                      "productId": "60a3c5b5f08c1a5d00f4c5b8",
+                      "qty": 2,
+                      "price": 15000
+                    },
+                    {
+                      "productId": "60a3c5b5f08c1a5d00f4c5b9",
+                      "qty": 1,
+                      "price": 20000
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

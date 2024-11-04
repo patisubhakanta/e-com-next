@@ -1,0 +1,84 @@
+{
+    "api": {
+      "endpoint": "/api/products",
+      "method": "GET",
+      "queryParameters": {
+        "sort": {
+          "description": "Sorting option for product pricing. Possible values are 'low-to-high' and 'high-to-low'.",
+          "type": "string",
+          "example": "low-to-high"
+        },
+        "search": {
+          "description": "Search term for filtering products by name.",
+          "type": "string",
+          "example": "example-product"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful retrieval of products, either filtered by search or sorted by price.",
+          "body": {
+            "products": [
+              {
+                "id": "string",
+                "name": "string",
+                "price": "number",
+                "description": "string"
+              }
+            ],
+            "recommend": [
+              {
+                "id": "string",
+                "name": "string",
+                "price": "number",
+                "description": "string"
+              }
+            ]
+          },
+          "example": {
+            "products": [
+              {
+                "id": "60a3c5b5f08c1a5d00f4c5b6",
+                "name": "Product 1",
+                "price": 15000,
+                "description": "Description of product 1."
+              },
+              {
+                "id": "60a3c5b5f08c1a5d00f4c5b7",
+                "name": "Product 2",
+                "price": 20000,
+                "description": "Description of product 2."
+              }
+            ],
+            "recommend": [
+              {
+                "id": "60a3c5b5f08c1a5d00f4c5b8",
+                "name": "Recommended Product 1",
+                "price": 14000,
+                "description": "Description of recommended product 1."
+              }
+            ]
+          }
+        },
+        "404": {
+          "description": "No products found matching the search criteria.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "No products found matching the search criteria."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

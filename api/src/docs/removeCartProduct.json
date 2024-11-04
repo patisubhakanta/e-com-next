@@ -1,0 +1,51 @@
+{
+    "api": {
+      "endpoint": "/api/cart/remove",
+      "method": "POST",
+      "description": "Decreases the quantity of a product in the user's cart. If the quantity reaches zero, removes the product.",
+      "requestBody": {
+        "productId": "string"
+      },
+      "responses": {
+        "200": {
+          "description": "Successful removal or quantity decrease of the cart item.",
+          "body": {
+            "message": "string",
+            "productId": "string"
+          },
+          "example": {
+            "message": "Product quantity decreased successfully.",
+            "productId": "60a3c5b5f08c1a5d00f4c5b8"
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "404": {
+          "description": "Product not found in the cart or cart not found.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Product not found in cart."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

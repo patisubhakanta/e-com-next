@@ -1,0 +1,77 @@
+{
+    "api": {
+      "endpoint": "/api/orders/:userId",
+      "method": "GET",
+      "description": "Retrieves all orders associated with a specific user.",
+      "requestParameters": {
+        "userId": {
+          "description": "The ID of the user whose orders are to be retrieved.",
+          "type": "string",
+          "example": "60a3c5b5f08c1a5d00f4c5b6"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful retrieval of the user's orders.",
+          "body": {
+            "username": "string",
+            "orders": [
+              {
+                "orderId": "string",
+                "totalAmount": "number",
+                "items": [
+                  {
+                    "productId": "string",
+                    "quantity": "number",
+                    "price": "number"
+                  }
+                ],
+                "timestamp": "date"
+              }
+            ]
+          },
+          "example": {
+            "username": "john_doe",
+            "orders": [
+              {
+                "orderId": "60a3c5b5f08c1a5d00f4c5b7",
+                "totalAmount": 45000,
+                "items": [
+                  {
+                    "productId": "60a3c5b5f08c1a5d00f4c5b8",
+                    "quantity": 2,
+                    "price": 15000
+                  },
+                  {
+                    "productId": "60a3c5b5f08c1a5d00f4c5b9",
+                    "quantity": 1,
+                    "price": 20000
+                  }
+                ],
+                "timestamp": "2024-11-04T12:34:56Z"
+              }
+            ]
+          }
+        },
+        "404": {
+          "description": "User not found or no orders associated with the user.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "User not found."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  
