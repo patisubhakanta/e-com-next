@@ -1,6 +1,7 @@
 "use client";
-import "./globals.css";
 import Header from "@/components/header/Header";
+import "./globals.css";
+
 import dynamic from "next/dynamic";
 
 const CartProvider = dynamic(() => import('@/context/CartContext').then(mod => mod.CartProvider), { ssr: false });
