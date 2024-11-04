@@ -1,6 +1,6 @@
 "use client";
 
-import ProductDetails from "@/components/product/ProductDeatails";
+import ProductDetails from "../../../components/product/ProductDeatails";
 import { useParams } from "next/navigation";
 
 
