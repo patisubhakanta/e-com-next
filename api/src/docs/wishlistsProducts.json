@@ -1,0 +1,64 @@
+{
+    "api": {
+      "endpoint": "/api/user/wishlist",
+      "method": "GET",
+      "description": "Retrieves and displays the user's wishlist. It verifies the user's token to ensure they are authenticated, then fetches the product details for each item in the user's wishlist.",
+      "responses": {
+        "200": {
+          "description": "Successfully retrieved the user's wishlist with product details.",
+          "body": {
+            "items": [
+              {
+                "productId": "string",
+                "productName": "string",
+                "price": "number",
+                "quantity": "number",
+                "imageUrl": "string",
+                "description": "string"
+              }
+            ]
+          },
+          "example": {
+            "items": [
+              {
+                "productId": "12345",
+                "productName": "Sample Product",
+                "price": 29.99,
+                "quantity": 1,
+                "imageUrl": "https://example.com/image.jpg",
+                "description": "A description of the sample product."
+              }
+            ]
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "404": {
+          "description": "User ID not found.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "User not found."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

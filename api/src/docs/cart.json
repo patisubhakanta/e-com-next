@@ -1,0 +1,76 @@
+{
+    "api": {
+      "endpoint": "/api/cart/items",
+      "method": "GET",
+      "description": "Retrieves all cart details associated with a specific user.",
+      "requestParameters": {
+        "userId": {
+          "description": "The ID of the user whose cart details are to be retrieved.",
+          "type": "string",
+          "example": "60a3c5b5f08c1a5d00f4c5b6"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful retrieval of the user's cart details.",
+          "body": {
+            "cart": [
+              {
+                "productId": "string",
+                "quantity": "number",
+                "name": "string",
+                "price": "number",
+                "description": "string"
+              }
+            ]
+          },
+          "example": {
+            "cart": [
+              {
+                "productId": "60a3c5b5f08c1a5d00f4c5b8",
+                "quantity": 2,
+                "name": "Product 1",
+                "price": 15000,
+                "description": "Description of product 1."
+              },
+              {
+                "productId": "60a3c5b5f08c1a5d00f4c5b9",
+                "quantity": 1,
+                "name": "Product 2",
+                "price": 20000,
+                "description": "Description of product 2."
+              }
+            ]
+          }
+        },
+        "401": {
+          "description": "Unauthorized access - invalid or missing token.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "404": {
+          "description": "User not found or cart is empty.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "No products found in the cart."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

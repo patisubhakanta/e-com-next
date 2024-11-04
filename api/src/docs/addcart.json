@@ -1,0 +1,75 @@
+{
+    "api": {
+      "endpoint": "/api/cart/add",
+      "method": "POST",
+      "request": {
+        "description": "Request payload to add multiple items to the user's cart",
+        "body": {
+          "items": [
+            {
+              "productId": "string (required) - ID of the product to add",
+              "quantity": "number (required) - Quantity of the product"
+            }
+          ]
+        },
+        "example": {
+          "items": [
+            {
+              "productId": "60a3c5b5f08c1a5d00f4c5b6",
+              "quantity": 2
+            },
+            {
+              "productId": "60a3c5b5f08c1a5d00f4c5b7",
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Successful addition of items to the cart",
+          "body": {
+            "message": "string",
+            "items": [
+              {
+                "productId": "string",
+                "quantity": "number"
+              }
+            ]
+          },
+          "example": {
+            "message": "Items added to cart successfully.",
+            "items": [
+              {
+                "productId": "60a3c5b5f08c1a5d00f4c5b6",
+                "quantity": 2
+              },
+              {
+                "productId": "60a3c5b5f08c1a5d00f4c5b7",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

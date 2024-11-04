@@ -1,0 +1,58 @@
+{
+    "api": {
+      "endpoint": "/api/wishlist/remove",
+      "method": "POST",
+      "description": "Handles the removal of a product from the user's wishlist. It verifies the user's token, checks if the wishlist exists, and removes the specified product if found.",
+      "requestBody": {
+        "_id": "string"
+      },
+      "responses": {
+        "200": {
+          "description": "Successful removal of the product from the wishlist.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Product removed from wishlist successfully."
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Invalid or missing token.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Unauthorized access."
+          }
+        },
+        "404": {
+          "description": "User not found or wishlist does not exist.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "User not found."
+          }
+        },
+        "400": {
+          "description": "The product ID specified is not found in the wishlist.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Product not found in wishlist."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred.",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  

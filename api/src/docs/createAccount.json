@@ -1,0 +1,68 @@
+{
+    "api": {
+      "endpoint": "/api/auth/signup",
+      "method": "POST",
+      "request": {
+        "description": "Request payload for user registration",
+        "body": {
+          "username": "string (required)",
+          "email": "string (required)",
+          "password": "string (required)"
+        },
+        "example": {
+          "username": "johndoe",
+          "email": "johndoe@example.com",
+          "password": "yourSecurePassword"
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "Successful user registration",
+          "body": {
+            "message": "string",
+            "user": {
+              "id": "string",
+              "username": "string",
+              "email": "string"
+            }
+          },
+          "example": {
+            "message": "User registered successfully.",
+            "user": {
+              "id": "60a3c5b5f08c1a5d00f4c5b5",
+              "username": "johndoe",
+              "email": "johndoe@example.com"
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request - Missing required fields",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Username, email, and password are required."
+          }
+        },
+        "401": {
+          "description": "Unauthorized - Email already in use",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "Email is already associated with an existing user."
+          }
+        },
+        "500": {
+          "description": "Internal Server Error - Unexpected error occurred",
+          "body": {
+            "message": "string"
+          },
+          "example": {
+            "message": "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    }
+  }
+  
