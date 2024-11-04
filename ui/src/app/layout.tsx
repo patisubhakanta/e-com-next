@@ -1,5 +1,5 @@
 "use client";
-import Header from "@/components/header/Header";
+import Header from "@/components/headerComponents/Header";
 import "./globals.css";
 
 import dynamic from "next/dynamic";
