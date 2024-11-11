@@ -41,7 +41,7 @@ const Header = () => {
         <div className="w-full flex items-center justify-between py-3 pr-6">
           <Image src={Logo} alt="Logo" width={48} height={96} onClick={() => router.push("/")} className="cursor-pointer	" />
           <div className="flex items-center">
-            <button onClick={() => {
+            <button name="shopping cart" aria-label="shopping cart" onClick={() => {
               router.push("/cart")
 
             }} className="relative ml-2">
@@ -52,13 +52,13 @@ const Header = () => {
                 </span>
               )}
             </button>
-            <button className="mx-6" onClick={() => {
+            <button name="user" aria-label="user" className="mx-6" onClick={() => {
               router.push(showLogout ? "/profile" : "/auth/signin")
             }}  >
               <UserCircleIcon className="w-6 h-6 text-primary-color" />
             </button>
             {showLogout ? <div>
-              <button className="mt-0.5" onClick={() => {
+              <button name="power" aria-label="power" className="mt-0.5" onClick={() => {
                 sessionStorage.clear()
                 localStorage.clear()
                 router.push("/")

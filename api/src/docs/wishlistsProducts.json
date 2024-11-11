@@ -1,6 +1,6 @@
 {
     "api": {
-      "endpoint": "/api/user/wishlist",
+      "endpoint": "/api/wishlist",
       "method": "GET",
       "description": "Retrieves and displays the user's wishlist. It verifies the user's token to ensure they are authenticated, then fetches the product details for each item in the user's wishlist.",
       "responses": {
