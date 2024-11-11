@@ -46,7 +46,7 @@ const SignupPage = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-gray-700 mb-2" htmlFor="name">
-                            Name
+                           Enter Name
                         </label>
                         <input
                             type="text"
@@ -71,12 +71,12 @@ const SignupPage = () => {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-gray-700 mb-2" htmlFor="password">
-                            Password
+                        <label className="block text-gray-700 mb-2" htmlFor="iPassword">
+                            Enter Password
                         </label>
                         <input
                             type="password"
-                            id="password"
+                            id="iPassword"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full p-2 border rounded"

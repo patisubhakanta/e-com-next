@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import axios from 'axios';
 import SignupPage from './page';
 import { useRouter } from 'next/navigation';
+import { API } from '@/route/Route';
 
 jest.mock('axios'); // Mock axios
 
@@ -13,6 +14,9 @@ jest.mock('next/navigation', () => ({
 const mockRouter = {
     push: jest.fn(),
 };
+beforeAll(() => {
+    global.alert = jest.fn(); // Mock window.alert
+});
 
 describe('SignupPage Component', () => {
     beforeEach(() => {
@@ -23,7 +27,7 @@ describe('SignupPage Component', () => {
         render(<SignupPage />);
         expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+        expect(screen.getByLabelText(/Enter Password/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/confirm password/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
     });
@@ -33,7 +37,7 @@ describe('SignupPage Component', () => {
 
         fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'Test User' } });
         fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
-        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
+        fireEvent.change(screen.getByLabelText(/Enter Password/i), { target: { value: 'password123' } });
         fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: 'password' } }); // Different confirm password
 
         fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
@@ -50,13 +54,13 @@ describe('SignupPage Component', () => {
 
         fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'Test User' } });
         fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
-        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
-        fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: 'password123' } }); // Matching confirm password
+        fireEvent.change(screen.getByLabelText(/Enter Password/i), { target: { value: 'password123' } });
+        fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: 'password123' } });
 
         fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
 
         await waitFor(() => {
-            expect(axios.post).toHaveBeenCalledWith('/api/auth/signup', { // Update with the correct API endpoint
+            expect(axios.post).toHaveBeenCalledWith(API.AUTH.SIGNUP, { 
                 username: 'Test User',
                 email: 'test@example.com',
                 password: 'password123'
@@ -72,7 +76,7 @@ describe('SignupPage Component', () => {
 
         fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'Test User' } });
         fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
-        fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
+        fireEvent.change(screen.getByLabelText(/Enter Password/i), { target: { value: 'password123' } });
         fireEvent.change(screen.getByLabelText(/confirm password/i), { target: { value: 'password123' } }); // Matching confirm password
 
         fireEvent.click(screen.getByRole('button', { name: /sign up/i }));

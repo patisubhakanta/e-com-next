@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import routes from "./routes/allRoutes";
@@ -22,7 +22,9 @@ connectDB(mongoUri);
 
 // Routes
 app.use('/api', routes);
-
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to the homepage!");
+});
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

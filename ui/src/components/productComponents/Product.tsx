@@ -87,7 +87,7 @@ const ProductPage = () => {
               />
               <span>High to Low</span>
             </label>
-            {selectedSort && <button onClick={clearFilters}><XCircleIcon className="w-6 h-6" /></button>}
+            {selectedSort && <button name="clear" onClick={clearFilters}><XCircleIcon className="w-6 h-6" /></button>}
           </div>
         </div>
 

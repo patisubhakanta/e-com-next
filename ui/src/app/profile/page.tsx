@@ -22,13 +22,13 @@ const ProfilePage = () => {
                             className="w-24 h-24 rounded-full border border-gray-300"
                         />
                         <div className="ml-4">
-                            <h1 className="text-2xl font-semibold">{data?.username || ""}</h1>
+                            <h1 data-testid="userName" className="text-2xl font-semibold">{data?.username || ""}</h1>
                         </div>
                     </div>
                 </div>
 
                 <div className="w-full flex justify-center mb-8">
-                    <button onClick={() => {
+                    <button role="button" onClick={() => {
                         router.push("/wishlist")
                     }} className="bg-blue-500 text-white px-6 py-2 mt-4 rounded hover:bg-blue-600">Wishlist</button>
                 </div>
