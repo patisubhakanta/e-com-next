@@ -10,7 +10,7 @@ jest.mock("next/navigation", () => ({
 }));
 jest.mock("next/image", () => ({
     __esModule: true,
-    default: (props: any) => <img {...props} />, // Mock Next.js Image component
+    default: (props: { src: string, alt?: string, width: number, height: number }) => <img {...props} />, // Mock Next.js Image component
 }));
 
 describe("Header Component", () => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { addItemsToCart, removeItemFromCart } from '../cartService'; // Adjust the import path as needed
+import { addItemsToCart } from '../cartService';
 import { API } from '@/route/Route';
 
 jest.mock('axios');

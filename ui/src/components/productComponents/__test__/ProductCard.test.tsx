@@ -10,10 +10,10 @@ import useCheckout from '@/hooks/useCheckout';
 
 // Mock dependencies
 jest.mock('next/navigation', () => ({ useRouter: jest.fn() }));
-jest.mock('../../context/CartContext', () => ({ useCart: jest.fn() }));
-jest.mock('../../context/WishlistContext', () => ({ useWishlist: jest.fn() }));
-jest.mock('../../service/wishlistService');
-jest.mock('../../hooks/useCheckout');
+jest.mock('@/context/CartContext', () => ({ useCart: jest.fn() }));
+jest.mock('@/context/WishlistContext', () => ({ useWishlist: jest.fn() }));
+jest.mock('@/service/wishlistService');
+jest.mock('@/hooks/useCheckout');
 
 describe('ProductCard', () => {
     const mockProduct: IProduct = {

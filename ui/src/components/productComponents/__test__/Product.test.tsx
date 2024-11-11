@@ -1,8 +1,7 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import ProductPage from '../Product';
 import useProducts from '../../../hooks/useProducts';
 import useViewWishlist from '@/hooks/useViewWishlist';
-import { IProduct } from '@/types/Types';
 import { CartProvider } from '@/context/CartContext';
 import { WishlistProvider } from '@/context/WishlistContext';
 
@@ -12,10 +11,6 @@ jest.mock('@/hooks/useViewWishlist');
 jest.mock('next/navigation', () => ({
     useRouter: jest.fn(),
 }));
-
-const mockRouter = {
-    push: jest.fn(),
-};
 
 describe('ProductPage Component', () => {
     const mockProducts = [

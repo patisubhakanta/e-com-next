@@ -1,6 +1,5 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import ProfilePage from './page';
-import useFetchOrder from '../../hooks/useFetchOrder';
 import { useRouter } from 'next/navigation';
 import { formatCurrency, formatTimestamp, getOrderStatus } from '../../utils';
 import '@testing-library/jest-dom';
